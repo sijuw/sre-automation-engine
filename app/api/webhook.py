@@ -31,6 +31,7 @@ async def receive_alert(
     logger.info(f"Title      : {alert.title}")
     logger.info(f"Status     : {alert.status}")
     logger.info(f"Message    : {alert.message}")
+    logger.info(f"Jira Ticket: {db_alert.jira_ticket}")
     logger.info(f"Dashboard  : {alert.dashboardURL}")
     logger.info(f"Received At: {db_alert.received_at}")
     logger.info("=" * 50)

@@ -1,19 +1,17 @@
 import logging
+import random
 
 logger = logging.getLogger(__name__)
 
 
 def create_jira_ticket(alert):
-    """
-    Creates a Jira incident.
 
-    Currently mocked.
-    """
+    logger.info("Connecting to Jira...")
 
-    logger.info("Creating Jira ticket...")
+    if random.choice([True, False]):
 
-    ticket = "INC-1001"
+        logger.info("Jira ticket created successfully")
 
-    logger.info(f"Created Jira Ticket: {ticket}")
+        return "INC-1001"
 
-    return ticket
+    raise Exception("Jira API unavailable")
