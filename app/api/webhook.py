@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.database.database import get_db
 from app.database.models import Alert
 from app.schemas import GrafanaAlert
+from app.services.alert_service import create_alert
 
 router = APIRouter()
 
@@ -22,24 +23,7 @@ async def receive_alert(
 
 
 # Create a database object
-    db_alert = Alert(
-        title=alert.title,
-        status=alert.status,
-        message=alert.message,
-        dashboard_url=alert.dashboardURL
-    )
-
-    # Save it to SQLite
-    try:
-        db.add(db_alert)
-        db.commit()
-        db.refresh(db_alert)
-    except Exception as e:
-        logger.exception(f"Failed to save alert: {e}")
-
-        return {
-        "message": str(e)
-    }
+    db_alert = create_alert(alert, db)
 
     logger.info("=" * 50)
     logger.info("🚨 NEW GRAFANA ALERT RECEIVED")
