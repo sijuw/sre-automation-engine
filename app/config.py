@@ -1,3 +1,7 @@
+# not in use 
+# use app.core.config instead
+
+
 from dotenv import load_dotenv
 import os
 
