@@ -31,10 +31,15 @@ def create_alert(
         logger.exception(f"Failed to save alert: {e}")
         raise
     try:
-        ticket = create_jira_ticket(db_alert)
-        
-        db_alert = update_jira_ticket(db,db_alert,ticket)
+        jira_issue = create_jira_ticket(db_alert)
+
     except Exception as e:
         logger.exception(f"Jira ticket Creation Failed : {e}")  
+    else:
 
+        try:
+            db_alert = update_jira_ticket(db,db_alert,jira_issue["key"])
+
+        except Exception as e:
+            logger.exception(f"Failed to update Jira ticket in database: {e}")
     return db_alert

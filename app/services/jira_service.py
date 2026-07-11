@@ -1,5 +1,6 @@
 import logging
-import random
+
+from app.clients.jira_clients import JiraClient
 
 logger = logging.getLogger(__name__)
 
@@ -8,10 +9,10 @@ def create_jira_ticket(alert):
 
     logger.info("Connecting to Jira...")
 
-    if random.choice([True, False]):
+    client = JiraClient()
 
-        logger.info("Jira ticket created successfully")
+    issue = client.create_an_incident(alert)
 
-        return "INC-1001"
+    logger.info(f"Jira Incident Created: {issue['key']}")
 
-    raise Exception("Jira API unavailable")
+    return issue

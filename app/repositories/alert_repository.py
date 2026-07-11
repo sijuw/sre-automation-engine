@@ -3,7 +3,10 @@ from sqlalchemy.orm import Session
 from app.database.models import Alert
 
 
-def save_alert(db: Session, alert: Alert):
+def save_alert(
+    db: Session,
+    alert: Alert
+):
 
     db.add(alert)
     db.commit()
@@ -11,16 +14,16 @@ def save_alert(db: Session, alert: Alert):
 
     return alert
 
+
 def update_jira_ticket(
     db: Session,
     alert: Alert,
-    ticket: str
+    jira_ticket: str
 ):
 
-    alert.jira_ticket = ticket
+    alert.jira_ticket = jira_ticket
 
     db.commit()
-
     db.refresh(alert)
 
     return alert
