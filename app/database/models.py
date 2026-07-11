@@ -23,3 +23,15 @@ class Alert(Base):
     dashboard_url = Column(String)
 
     received_at = Column(DateTime, default=datetime.utcnow)
+
+    jira_ticket = Column(String, nullable=True)
+
+    assigned_team = Column(String, nullable=True)
+
+    acknowledged_by = Column(String, nullable=True)
+
+    resolved_at = Column(DateTime, nullable=True)
+    incident_status = Column(
+        String,
+        default="Open"
+    )
