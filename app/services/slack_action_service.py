@@ -68,9 +68,34 @@ def handle_slack_action(
             f"Jira Ticket Created: {jira_issue['key']}"
         )
 
+
     elif action == "ignore_alert":
 
-        logger.info(f"Alert {alert.id} ignored.")
+        logger.info(f"Processing 'ignore_alert' for Alert {alert_id}")
+
+        alert.incident_status = "IGNORED"
+
+        alert.acknowledged_by = user
+
+        update_alert(
+            db,
+            alert
+        )
+
+        slack_client = SlackClient()
+
+        updated_blocks = build_updated_alert_blocks(alert)
+
+        response = slack_client.update_message(
+            channel=channel,
+            ts=message_ts,
+            blocks=updated_blocks
+        )
+
+        logger.info(response)
+
+        logger.info("Alert ignored.")
+
 
     elif action == "create_meet":
 

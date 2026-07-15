@@ -1,3 +1,4 @@
+
 from app.database.models import Alert
 
 
@@ -83,49 +84,38 @@ def build_alert_blocks(alert: Alert) -> list:
 
 def build_updated_alert_blocks(alert):
 
-    if alert.incident_status == "IGNORED":
-
-        title = "🚫 Alert Ignored"
-
-        status = (
-            f"*Handled By:*\n{alert.acknowledged_by}\n"
-            "*Decision:*\nIgnored"
-        )
-
-    else:
-
-        title = "✅ Incident Accepted"
-
-        status = (
-            f"*Handled By:*\n{alert.acknowledged_by}\n"
-            f"*Jira:*\n{alert.jira_ticket}"
-        )
-
     return [
-
         {
             "type": "header",
             "text": {
                 "type": "plain_text",
-                "text": title
+                "text": "✅ Incident Accepted"
             }
         },
-
         {
             "type": "section",
             "fields": [
-
                 {
                     "type": "mrkdwn",
                     "text": f"*Title:*\n{alert.title}"
                 },
-
                 {
                     "type": "mrkdwn",
-                    "text": status
+                    "text": f"*Status:*\n{alert.status}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Jira:*\n{alert.jira_ticket}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Handled By:*\n{alert.acknowledged_by}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Incident Status:*\n{alert.incident_status}"
                 }
-
             ]
         }
-
     ]
+
