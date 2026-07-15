@@ -80,3 +80,41 @@ def build_alert_blocks(alert: Alert) -> list:
             ]
         }
     ]
+
+def build_updated_alert_blocks(alert):
+
+    return [
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": "✅ Incident Accepted"
+            }
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Title:*\n{alert.title}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Status:*\n{alert.status}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Jira:*\n{alert.jira_ticket}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Handled By:*\n{alert.acknowledged_by}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": f"*Incident Status:*\n{alert.incident_status}"
+                }
+            ]
+        }
+    ]
+

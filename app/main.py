@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.api import slack
 
 #import the engine and Base from the database module
 from app.database.database import engine
@@ -30,6 +31,11 @@ Base.metadata.create_all(bind=engine)
 # register the router with the FastAPI app
 app.include_router(webhook_router)
 app.include_router(alerts_router)
+app.include_router(
+    slack.router,
+    prefix="/slack",
+    tags=["Slack"]
+)
 
 
 @app.get("/")
